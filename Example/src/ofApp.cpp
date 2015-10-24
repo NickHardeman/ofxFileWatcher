@@ -2,6 +2,11 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+    
+    // run the application //
+    // edit the bg.jpg and texture.jpg files and save them.
+    // view the changes in the application //
+    
     ofSetWindowTitle("openFrameworks Application");
     ofSetFrameRate( 60 );
     watcher.addFile( "bg.jpg", "BG" );
