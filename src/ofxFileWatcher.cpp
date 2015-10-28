@@ -12,6 +12,7 @@
 ofxFileWatcher::ofxFileWatcher() {
     bHasListeners = false;
     setGarbageCollection( true );
+    nextCheckTimeMillis = 10;
     setInterval( 1000 );
     start();
 }
@@ -147,6 +148,8 @@ void ofxFileWatcher::update( ofEventArgs& args ) {
                     if( wf->tex != NULL ) {
                         ofLoadImage( *wf->tex, wf->filePath );
                     }
+                    
+                    wf->modTime = attrib.st_mtime;
                     
                     // pass an event here //
                     Event tevent;
