@@ -119,6 +119,8 @@ public:
     // remove deleted files //
     void setGarbageCollection( bool aB );
     
+    void reloadAll();
+    
     ofEvent< Event > FileModEvent;
     
 protected:

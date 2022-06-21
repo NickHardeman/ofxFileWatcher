@@ -255,6 +255,13 @@ void ofxFileWatcher::update( ofEventArgs& args ) {
     }
 }
 
+//--------------------------------------------------------------
+void ofxFileWatcher::reloadAll() {
+    for( int i = 0; i < files.size(); i++ ) {
+        auto wf = files[i];
+        if( wf) wf->load();
+    }
+}
 
 
 
