@@ -6,7 +6,10 @@
 //
 
 #pragma once
-#include "ofMain.h"
+#include "ofImage.h"
+#include "ofShader.h"
+#include "ofPixels.h"
+#include "ofEvents.h"
 
 class ofxFileWatcher {
 public:
@@ -18,7 +21,7 @@ public:
     
     class WatchFile {
     public:
-        void set(string aname, string afilepath, bool abAutoLoad) {
+        void set(std::string aname, std::string afilepath, bool abAutoLoad) {
             name = aname;
             filePath = afilepath;
             file = ofFilePath::getBaseName(filePath)+"."+ofFilePath::getFileExt(filePath);
@@ -26,10 +29,10 @@ public:
         }
         
         virtual bool load() { return false; }
-        string file = "";
+		std::string file = "";
         
-        string filePath = "";
-        string name = "";
+		std::string filePath = "";
+		std::string name = "";
         bool bAutoLoad=false;
         long modTime = 0;
         bool bDeleted=false;
@@ -72,7 +75,7 @@ public:
             return false;
         }
         
-        void setShaderPaths( string aVertPath, string aFragPath, string aGeomPath ) {
+        void setShaderPaths( std::string aVertPath, std::string aFragPath, std::string aGeomPath ) {
             vertPath = aVertPath;
             fragPath = aFragPath;
             geomPath = aGeomPath;
@@ -80,35 +83,35 @@ public:
         
         ofShader* shader = NULL;
         
-        string vertPath = "";
-        string fragPath = "";
-        string geomPath = "";
+		std::string vertPath = "";
+		std::string fragPath = "";
+		std::string geomPath = "";
     };
     
     
     class Event {
     public:
         int type;
-        string filePath;
-        string name;
-        string file;
+		std::string filePath;
+		std::string name;
+		std::string file;
     };
     
     ofxFileWatcher();
     
-    static bool shouldRemoveFile( const shared_ptr<WatchFile>& af );
+    static bool shouldRemoveFile( const std::shared_ptr<WatchFile>& af );
     
-    void add( string aPath );
-    void add( string aPath, string aCuteLilNickName );
+    void add( std::string aPath );
+    void add( std::string aPath, std::string aCuteLilNickName );
     
-    void add( string aPath, ofImage* aImg, bool abAutoLoad=true );
-    void add( string aPath, ofImage* aImg, string aCuteLilNickName, bool abAutoLoad=true );
+    void add( std::string aPath, ofImage* aImg, bool abAutoLoad=true );
+    void add( std::string aPath, ofImage* aImg, std::string aCuteLilNickName, bool abAutoLoad=true );
     
-    void add( string aPath, ofTexture* aTex, bool abAutoLoad=true, bool abTex2d=false );
-    void add( string aPath, ofTexture* aTex, string aCuteLilNickName, bool abAutoLoad=true, bool abTex2d=false );
+    void add( std::string aPath, ofTexture* aTex, bool abAutoLoad=true, bool abTex2d=false );
+    void add( std::string aPath, ofTexture* aTex, std::string aCuteLilNickName, bool abAutoLoad=true, bool abTex2d=false );
     
-    void add( string aVertPath, string aFragPath, string aGeomPath, ofShader* aShader, bool abAutoLoad=true );
-    void add( string aVertPath, string aFragPath, string aGeomPath, ofShader* aShader, string aCuteLilNickName, bool abAutoLoad=true );
+    void add( std::string aVertPath, std::string aFragPath, std::string aGeomPath, ofShader* aShader, bool abAutoLoad=true );
+    void add( std::string aVertPath, std::string aFragPath, std::string aGeomPath, ofShader* aShader, std::string aCuteLilNickName, bool abAutoLoad=true );
     
     void start();
     void stop();
@@ -130,5 +133,5 @@ protected:
     bool bHasListeners, bAutoRemoveDelFiles;
     int intervalMillis, nextCheckTimeMillis;
     
-    vector< shared_ptr<WatchFile> > files;
+	std::vector< std::shared_ptr<WatchFile> > files;
 };

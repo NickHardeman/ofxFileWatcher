@@ -8,6 +8,11 @@
 #include "ofxFileWatcher.h"
 #include <sys/stat.h>
 
+using std::string;
+using std::vector;
+using std::shared_ptr;
+using std::make_shared;
+
 //--------------------------------------------------------------
 ofxFileWatcher::ofxFileWatcher() {
     bHasListeners = false;
@@ -204,7 +209,7 @@ void ofxFileWatcher::update( ofEventArgs& args ) {
                     tevent.name     = wf->name;
                     tevent.file     = wf->file;
                     tevent.type     = EVENT_DEL;
-                    cout << "WatchDog :: passing a delete file event " << endl;
+                    ofLogNotice("ofxFileWatcher") << "passing a delete file event ";
                     ofNotifyEvent( FileModEvent, tevent, this);
                 }
                 wf->bDeleted = true;
@@ -221,7 +226,7 @@ void ofxFileWatcher::update( ofEventArgs& args ) {
                     if( wf->bAutoLoad ) {
                         bool bOk = wf->load();
 //                        ofLogNotice("ofxFileWatcher :: load: " ) << bOk << " file: " << wf->file;
-                        cout << ("ofxFileWatcher :: load: " ) << bOk << " file: " << wf->file << " | " << ofGetFrameNum() << endl;
+						ofLogNotice("ofxFileWatcher :: load: " ) << bOk << " file: " << wf->file << " | " << ofGetFrameNum();
                     }
                     
                     // check to see if we need to load a tex or image //
@@ -257,7 +262,7 @@ void ofxFileWatcher::update( ofEventArgs& args ) {
 
 //--------------------------------------------------------------
 void ofxFileWatcher::reloadAll() {
-    for( int i = 0; i < files.size(); i++ ) {
+    for( size_t i = 0; i < files.size(); i++ ) {
         auto wf = files[i];
         if( wf) wf->load();
     }
